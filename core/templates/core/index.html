@@ -3,6 +3,7 @@
 <html>
    <head>
         {%load static%}
+        {% load gTTS %}
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <title>Máquina de Turing</title>
@@ -30,9 +31,8 @@
         <div class=" p-5">
             <div class="row">
                 <!--mostrar el grafo-->
-                <div class="container-display border">
-                    <div class="container-grafo border" id="mynetwork"></div>
-
+                <div class="container-display">
+                    <div class="container-grafo" id="mynetwork"></div>
                     <script type="text/javascript">
 
 var nodes = new vis.DataSet([
@@ -111,6 +111,10 @@ function resetEdges(){
 
                      <!--campo de texto y boton enviar-->
                     <section class=" bg-primary text-white text-center">
+                        <audio
+                    src="{% say 'es-es' 'Bienvenido a Turing' %}"
+                    autoplay
+                    ></audio>
                         <section class="container d-flex align-items-center flex-row">
                             <div class="input-group ">
                                 <input ID="palabra" type="text" class="form-control" placeholder="Ingresa una palabra">
@@ -140,6 +144,45 @@ function resetEdges(){
                     </section>
                 </div>
             </div>
+     <div class="tab-pane" id="tab4" role="tabpanel">
+                <center>
+                    <div class="d-inline">
+                        <div class="col-6">
+                            <table id="tabla4" class="
+                    table table-sm-hover
+                    text-center
+                    table-responsive
+                    text-light
+                  ">
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </center>
+            </div>
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTitle"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="modalText" class="lead"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="cerrar" data-dismiss="modal">
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
      </body>
 </html>
