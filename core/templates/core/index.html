@@ -1,0 +1,145 @@
+
+<!Doctype html>
+<html>
+   <head>
+        {%load static%}
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <title>Máquina de Turing</title>
+        <!-- Font Awesome icons (free version)-->
+        <link href="https://fontawesome.com/v4.7.0/assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+              type="text/css"/>
+         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css"/>
+         <link href="{% static 'css/estilos.css' %}" rel="stylesheet" type="text/css"/>
+
+
+   </head>
+     <body>
+         <header class="navbar bg-secondary text-uppercase fixed-top" id="mainNav">
+             <div class="container">
+                 <a class="navbar-brand" href="#page-top">Máquina de Turing</a>
+             </div>
+         </header>
+
+        <div class=" p-5">
+            <div class="row">
+                <!--mostrar el grafo-->
+                <div class="container-display border">
+                    <div class="container-grafo border" id="mynetwork"></div>
+
+                    <script type="text/javascript">
+
+var nodes = new vis.DataSet([
+    { id: 1, label: "Q0",borderWidth:3,color:{border:'#000', background: 'lightblue'},fixed:{x:true,y:true}},
+    { id: 2, label: "Q1",borderWidth:3,color:{border:'#000', background: 'lightblue'},fixed:{x:true,y:true}},
+    { id: 3, label: "Q2", borderWidth:3,color:{border:'#000',background: 'lightblue'},fixed:{x:true,y:true}},
+]);
+
+
+var edges = new vis.DataSet([
+    { id:0,from: 1, to: 1,color:{color:'#000'},selfReferenceSize:1,arrows:{to:{enabled:true,scaleFactor: 1.5}}},
+    { id:1,from: 1, to: 1,font: {color: '#ffffff',strokeWidth: 1,strokeColor: '#171a6b'},color:{color:'lightgrey'},arrows:{to:{enabled:true}},selfReferenceSize:70,label:'# | a | R'},
+    { id:2,from: 1, to: 1,font: {color: '#ffffff',strokeWidth: 1,strokeColor: '#171a6b'},color:{color:'lightgrey'}, arrows:{to:{enabled:true}},selfReferenceSize:20, label:'b | a | R'},
+    { id:3,from: 1, to: 1,font: {color: '#ffffff',strokeWidth: 1,strokeColor: '#171a6b'},color:{color:'lightgrey'}, arrows:{to:{enabled:true}},selfReferenceSize:45, label:'a | a | R'},
+    { id:4,from: 1, to: 2,font: {color: '#ffffff',strokeWidth: 1,strokeColor: '#171a6b'},color:{color:'lightgrey'}, length:200, label:'λ | λ | L',arrows:{to:{enabled:true}}},
+    { id:5,from: 2, to: 2,font: {color: '#ffffff',strokeWidth: 1,strokeColor: '#171a6b'},color:{color:'lightgrey'}, label:'a | a | L',selfReferenceSize:40,arrows:{to:{enabled:true}}},
+    { id:6,from: 2, to: 3,font: {color: '#ffffff',strokeWidth: 1,strokeColor: '#171a6b'},color:{color:'lightgrey'}, length:200, label:'λ | λ | R',arrows:{to:{enabled:true}} }
+]);
+
+var container = document.getElementById("mynetwork");
+var data = {
+    nodes: nodes,
+    edges: edges
+};
+var options = {
+
+    edges:{
+
+    }
+
+}
+
+var network = new vis.Network(container, data,options);
+    network.moveTo({
+    position: {x:0,y:0},
+    scale: 1.0,
+    offset: {x:0,y:0}
+  })
+
+  network.on('afterDrawing', function(){
+    var dataN = [{id: 1, x: -300, y:40}, {id:2, x:-100, y:40}, {id:3, x:100, y:40}];
+    nodes.update(dataN);
+  })
+
+function actualizarGrafo(index){
+    resetNodes();
+    nodes.update({id:3,color:{border:'#000',background: 'lightblue'}})
+    if(index <=3 && index >0){
+        nodes.update ({id: 1, color: {background: 'red'}});
+
+    }
+    if(index == 4 || index ==5){
+        nodes.update ({id: 2, color: {background: 'red'}});
+    }
+    if(index == 6)
+        nodes.update ({id: 3, color: {background: 'red'}});
+
+    edges.update({id: index, color: {color:'red'},shadow: {
+        enabled: true,
+        color: "rgba(0,0,0,0.5)"
+    }})
+
+}
+function resetNodes(){
+    for(var i=1;i<3;i++){
+        nodes.update({id:i,color:{background: 'lightblue'}})
+    }
+}
+function resetEdges(){
+    for(var i=1;i<7;i++){
+        edges.update({id:i,color:{color: 'lightgrey'},shadow:{enabled:false}})
+    }
+}
+  </script>
+                </div>
+
+                     <!--campo de texto y boton enviar-->
+                    <section class=" bg-primary text-white text-center">
+                        <section class="container d-flex align-items-center flex-row">
+                            <div class="input-group ">
+                                <input ID="palabra" type="text" class="form-control" placeholder="Ingresa una palabra">
+                                <span class="input-group-btn">
+                                    <button id="enviar" class="btn text-white  bg-secondary  active" type="button">
+                                    Aceptar <i class=" entry fa-solid fa-circle-check"></i>
+                                    </button>
+                                 </span>
+                            </div>
+                        </section>
+
+                         <!--------------- controles de animacion--------------->
+                        <div class="row my-2 ">
+                            <div class="col-md-4  text-light bg-secondary offset-md-4 interno">
+                                <label id="velocidad">Velocidad:</label>
+                                <input type="range" min="0" max="1000" value="500" step="100" class="slider"
+                                       id="rango"/>
+                                <button class="btn  bg-secondary text-white active"  aria-pressed="true" id="run" content="1">
+                                    <i class="fa-solid fa-circle-play fa-2x"></i>
+                                </button>
+                                <button class="btn bg-secondary text-light active"  aria-pressed="true"  id="stop" content="1"
+                                        onclick="Stop();">
+                                    <i class="fa-solid fa-circle-stop fa-2x"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+     </body>
+</html>
