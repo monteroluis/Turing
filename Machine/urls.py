@@ -19,7 +19,7 @@ from core import views
 
 urlpatterns = [
     path('', views.home),
-    path('admin/', admin.site.urls),
+    path('buscar',views.buscar),
     path('gtts/', include('gTTS.urls')),
     path('gtts_auth/', include('gTTS.urls_auth')),
 ]

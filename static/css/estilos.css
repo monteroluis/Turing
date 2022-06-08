@@ -2,19 +2,15 @@ body{
 background-color: #1abc9c;
 }
 
-.container-grafo{
- width: 80%;
- height: 500px;
+.area{
+background-color: #343a40;
+color:white;
+resize:none;
 }
 
-.container-display{
-display:flex;
-width:100%;
-height:100%;
-justify-content:center;
+area:focus{
+background: #343a40;
 }
 
-#mynetwork {
-width: 600px;
-height: 400px;
-}
+
+

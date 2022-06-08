@@ -1,0 +1,69 @@
+#sintaxis de do-while funcionando
+numeric a;
+a~2;
+
+realize {
+write("funcionando");
+a~a+1;
+}during a<10 ;
+
+#Se imprime el encabezado
+write("Tablas de" & " multiplicar");
+
+#Se declara la variable a, de tipo numero
+numeric a;
+#Se asigna a la variable a el valor 0
+a~0;
+#Se declara la variable c, de tipo numero
+numeric c;
+#Se asigna a la variable c el valor 0
+c~1;
+#Se imprime un separador
+write("----------------");
+
+--->
+ * Se imprimen las tablas del 1 al 5 y
+ * para cada tabla, se imprimen los resultados
+ * desde el uno hasta el 5, esto se hace con
+ * dos ciclos while anidados.
+ <---
+
+during:a<4+c{
+	a~a+1;
+	numeric b;
+	b~0;
+	during:b<4+c{
+		b~b+1;
+		write(a & " * " & b & " = " & a * b);
+	}
+	write("----------------");
+}
+
+#Se asigna a la variable a el valor de 12
+a~12;
+--->
+  La variable b ya había sido declarada pero
+ * dentro del ámbito del primer ciclo while,
+ * entonces no existe en este ámbito por lo que
+ * debe declararse.
+ <---
+numeric b;
+#Se asigna valor de 12 a b y valor de 13 a c
+b~12;
+c~13;
+--->
+ Se evalua si el valor de la variable a es
+  mayor que 10, si el b es mayor que 11 y si
+  el de c es mayor que 12.
+ <---
+iteof:a>10{
+	write("a es mayor que 10.");
+iteof:b>11{
+write("a es mayor que 10 y b es mayor que 11.");
+iteof:c>12{
+write("a es mayor que 10, b es mayor que 11 y c es mayor que 12.");
+}
+}
+}otherwise{
+	write("a es menor o igual que 10.");
+}
